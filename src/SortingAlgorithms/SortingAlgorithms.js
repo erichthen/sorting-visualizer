@@ -58,12 +58,13 @@ const quick_sort_ip = (arr, low, high) => {
     if (low < high) {
         let pt = partition(arr, low, high);
         quick_sort_ip(arr, low, pt - 1);
-        quick_sort_ip(arr, pt + 1);
+        quick_sort_ip(arr, pt + 1, high);
     }
 };
 
 export const quickSort = (arr) => {
     quick_sort_ip(arr, 0, arr.length - 1);
+    return arr;
 };
 
 
@@ -84,18 +85,15 @@ export const bubbleSort = (arr) => {
                 swapped = true;
             }
         }
-
         if (!swapped){
             break;
         }
-
     }
     return arr;
-
 };
 
 
-//heapsoer
+//heap sort
 
 export const heapSort = (arr) => {
     let n = arr.length;
