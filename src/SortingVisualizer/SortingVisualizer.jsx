@@ -25,14 +25,19 @@ export default class SortingVisualizer extends React.Component {
     }
 
     mergeSort() {
-
-        //temporary tests on sorts
-
-        let arr = [40, -20, 30, 10, 50, 5];
-        let ans = [-20, 5, 10, 30, 40, 50];
-        const my_sort = sorting_algorithms.mergeSort(arr);
-        console.log(arrays_equal(ans, my_sort));
         
+        // let arr = [40, -20, 30, 10, 50, 5];
+        // let ans = [-20, 5, 10, 30, 40, 50];
+        // const my_sort = sorting_algorithms.mergeSort(arr);
+        // console.log(arrays_equal(ans, my_sort));
+        
+        const animations = getMergeSortAnimations(this.state.array);
+        for (let i = 0; i < animations.length; i++) {
+
+           const arrayBars = document.getElementsByClassName('array-bar');
+
+
+        } 
     }
     
     quick_sort() {
