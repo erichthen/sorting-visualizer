@@ -95,6 +95,42 @@ export const bubbleSort = (arr) => {
 };
 
 
+//heapsoer
+
+export const heapSort = (arr) => {
+    let n = arr.length;
+
+    for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+        max_heap(arr, n, i);
+    }
+
+    for (let i = n - 1; i > 0; i--) {
+        [arr[0], arr[i]] = [arr[i], arr[0]];
+        max_heap(arr, i, 0);
+    }
+
+    return arr;
+};
+
+const max_heap = (arr, n, i) => {
+    let largest = i;
+    let left = 2 * i + 1;
+    let right = 2 * i + 2;
+
+    if (left < n && arr[left] > arr[largest]) {
+        largest = left;
+    }
+
+    if (right < n && arr[right] > arr[largest]) {
+        largest = right;
+    }
+
+    if (largest !== i) {
+        [arr[i], arr[largest]] = [arr[largest], arr[i]];
+        max_heap(arr, n, largest);
+    }
+};
+
 
 
 
