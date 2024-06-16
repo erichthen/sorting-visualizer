@@ -33,6 +33,8 @@ export default class SortingVisualizer extends React.Component {
 
     mergeSort() {
 
+        //test_sorting_algorithms();
+
         const animations = sorting_algorithms.mergeSort(this.state.array);
         for (let i = 0; i < animations.length; i++) {
             const bars = document.getElementsByClassName('array-bar');
@@ -59,25 +61,15 @@ export default class SortingVisualizer extends React.Component {
 
     
     quick_sort() {
-
-        let arr = [40, -20, 30, 10, 50, 5];
-        let ans = [-20, 5, 10, 30, 40, 50];
-        const my_sort = sorting_algorithms.quickSort(arr);
-        console.log(arrays_equal(ans, my_sort));
+        return;
     }
 
     heap_sort() {
-        let arr = [40, -20, 30, 10, 50, 5];
-        let ans = [-20, 5, 10, 30, 40, 50];
-        const my_sort = sorting_algorithms.heapSort(arr);
-        console.log(arrays_equal(ans, my_sort));
+        return;
     }
 
     bubble_sort() {
-        let arr = [40, -20, 30, 10, 50, 5];
-        let ans = [-20, 5, 10, 30, 40, 50];
-        const my_sort = sorting_algorithms.bubbleSort(arr);
-        console.log(arrays_equal(ans, my_sort));
+        return;
     }
 
     render() {
