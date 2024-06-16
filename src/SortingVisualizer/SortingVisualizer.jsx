@@ -3,6 +3,13 @@ import * as sorting_algorithms from '../SortingAlgorithms/SortingAlgorithms.js';
 import './SortingVisualizer.css';
 
 
+
+const ANIMATION_SPEED_MS = 1;
+const NUMBER_OF_ARRAY_BARS = 250;
+const PRIMARY_COLOR = (255, 102, 102);
+const SECONDARY_COLOR = (255, 102, 102);
+
+
 export default class SortingVisualizer extends React.Component {
 
     constructor(props) {
@@ -18,27 +25,38 @@ export default class SortingVisualizer extends React.Component {
 
     resetArray() {
         const array = [];
-        for (let i = 0; i < 330; i++) {
+        for (let i = 0; i < NUMBER_OF_ARRAY_BARS; i++) {
             array.push(random_int(5, 950));
         }
         this.setState({ array });
     }
 
     mergeSort() {
-        
-        // let arr = [40, -20, 30, 10, 50, 5];
-        // let ans = [-20, 5, 10, 30, 40, 50];
-        // const my_sort = sorting_algorithms.mergeSort(arr);
-        // console.log(arrays_equal(ans, my_sort));
-        
-        const animations = getMergeSortAnimations(this.state.array);
+
+        const animations = sorting_algorithms.mergeSort(this.state.array);
         for (let i = 0; i < animations.length; i++) {
+            const bars = document.getElementsByClassName('array-bar');
+            const change_color = i % 3 !== 2;
+            if (change_color) {
+                    const[bar_one_index, bar_two_index] = animations[i];
+                    const bar_one_style = bars[bar_one_index].style;
+                    const bar_two_style = bars[bar_two_index].style;
+                    const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+                    setTimeout(() => {
+                        bar_one_style.backgroundColor = color;
+                        bar_two_style.backgroundColor = color;
+                    }, i * ANIMATION_SPEED_MS);
+            }
+            else {
+                setTimeout(() => {
+                    const [bar_one_index, newHeight] = animations[i];
+                    const bar_one_style = bars[bar_one_index].style;
+                    bar_one_style.height = `${newHeight}px`;
+                }, i * ANIMATION_SPEED_MS);
+            }
+        }
+    } 
 
-           const arrayBars = document.getElementsByClassName('array-bar');
-
-
-        } 
-    }
     
     quick_sort() {
 
@@ -102,5 +120,29 @@ function arrays_equal(arr1, arr2) {
     }
     return true ;
 }
+
+function test_sorting_algorithms() {
+
+    for (let i = 0; i < 100; i++) {
+        const array = [];
+        const length = random_int(1, 500);
+        for (let j = 0; j < length; j++) {
+            array.push(random_int(-500, 500));
+        }
+        const correct_sorted = array.slice().sort((a, b) => a - b);
+
+        const merged = sorting_algorithms.mergeSort(array);
+        const quickied = sorting_algorithms.quickSort(array);
+        const bubbled = sorting_algorithms.bubbleSort(array);
+        const heaped = sorting_algorithms.heapSort(array);
+
+        console.log(arrays_equal(merged, correct_sorted));
+        // console.log(arrays_equal(quickied, correct_sorted));
+        // console.log(arrays_equal(bubbled, correct_sorted));
+        // console.log(arrays_equal(heaped, correct_sorted));
+    }
+}
+
+
 
 

@@ -21,8 +21,8 @@ body {
 }
 
 .array-bar {
-    width: 4px;
-    background-color: rgb(148, 16, 132);
+    width: 6px;
+    background-color: rgb(255, 102, 102);
     display: inline-block;
     margin: 0 1px;
 }

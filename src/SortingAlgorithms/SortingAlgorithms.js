@@ -1,39 +1,51 @@
 
-//mergeSort
-
-export const mergeSort = array => {
-
-    if (array.length <= 1){
-        return array;
-    }
-
-    const middle = Math.floor(array.length / 2);
-    const left = array.slice(0, middle);
-    const right = array.slice(middle);
-
-    return merge(mergeSort(left), mergeSort(right));
-    
+export function mergeSort (array) {
+    const animations = [];
+    if (array.length <= 1) return array; 
+    const aux_arr = array.slice();
+    merge_helper(array, 0, array.length - 1, aux_arr, animations);
+    return animations;
 }
 
-const merge = (left, right) => {
+function merge_helper(main_arr, start_index, end_index, aux_arr, animations) {
+    if (start_index === end_index) return;
+    const mid_index = Math.floor((start_index + end_index) / 2);
+    merge_helper(aux_arr, start_index, mid_index, main_arr, animations);
+    merge_helper(aux_arr, mid_index + 1, end_index, main_arr, animations);
+    merge(main_arr, start_index, mid_index, end_index, aux_arr, animations);
+}
 
-    let result = [];
-    let left_index = 0;
-    let right_index = 0;
+function merge(main_arr, start_index, mid_index, end_index, aux_arr, animations) {
 
-    while (left_index < left.length && right_index < right.length) {
-        if (left[left_index] < right[right_index]) {
-            result.push(left[left_index]);
-            left_index ++;
+    let k = start_index;
+    let i = start_index;
+    let j = mid_index + 1;
+
+    while (i <= mid_index && j <= end_index) {
+        animations.push([i, j]);
+        animations.push([i, j]);
+        if (aux_arr[i] <= aux_arr[j]) {
+            animations.push([k, aux_arr[i]]);
+            main_arr[k++] = aux_arr[i++];
         }
         else {
-            result.push(right[right_index]);
-            right_index ++;
+            animations.push([k, aux_arr[j]]);
+            main_arr[k++] = aux_arr[j++];
         }
     }
-    return result.concat(left.slice(left_index)).concat(right.slice(right_index)); 
+    while (i <= mid_index) {
+        animations.push([i, i]);
+        animations.push([i, i]);
+        animations.push([k, aux_arr[i]])
+        main_arr[k++] = aux_arr[i++];
+    }
+    while (j <= end_index) {
+        animations.push([j, j]);
+        animations.push([j, j])
+        animations.push([k, aux_arr[j]])
+        main_arr[k++] = aux_arr[j++];
+    }
 }
-
 
 
 //quick sort
