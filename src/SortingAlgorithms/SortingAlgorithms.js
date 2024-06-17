@@ -50,33 +50,41 @@ function merge(main_arr, start_index, mid_index, end_index, aux_arr, animations)
 
 //quick sort
 
-const partition = (arr, low, high) => {
+export function quickSort(array) {
+    const animations =[];
+    if (array.length <= 1) return array;
+    quick_sort_ip(array, 0, array.length - 1, animations);
+    return animations;
+};
+
+
+const partition = (arr, low, high, animations) => {
 
     let pivot = arr [high];
     let i = low - 1;
 
     for (let j = low; j < high; j++) {
+        animations.push(['compare', j, high]);
+        animations.push(['compare', j, high]);
         if (arr[j] <= pivot) {
             i++;
+            animations.push(['swap', i, arr[j], j, arr[i]]);
             [arr[i], arr[j]] = [arr[j], arr[i]];
         }
     }
+    //final swap for pivot -> correct place
+    animations.push(['swap', i + 1, arr[high], high, arr[i + 1]]);
     [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
     return i + 1;
 };
 
-const quick_sort_ip = (arr, low, high) => {
+const quick_sort_ip = (arr, low, high, animations) => {
 
     if (low < high) {
-        let pt = partition(arr, low, high);
-        quick_sort_ip(arr, low, pt - 1);
-        quick_sort_ip(arr, pt + 1, high);
+        let pt = partition(arr, low, high, animations);
+        quick_sort_ip(arr, low, pt - 1, animations);
+        quick_sort_ip(arr, pt + 1, high, animations);
     }
-};
-
-export const quickSort = (arr) => {
-    quick_sort_ip(arr, 0, arr.length - 1);
-    return arr;
 };
 
 
@@ -84,6 +92,7 @@ export const quickSort = (arr) => {
 
 export const bubbleSort = (arr) => {
 
+    const animations = [];
     let n = arr.length;
     let swapped;
 
@@ -92,7 +101,10 @@ export const bubbleSort = (arr) => {
         swapped = false;
 
         for (let j = 0; j < n - 1 - i; j++) {
+            animations.push(['compare', j, j + 1]);
+            animations.push(['compare', j, j + 1]);
             if (arr[j] > arr[j + 1]){
+                animations.push(['swap', j, arr[j + 1], j + 1, arr[j]])
                 [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
                 swapped = true;
             }
@@ -101,8 +113,9 @@ export const bubbleSort = (arr) => {
             break;
         }
     }
-    return arr;
+    return animations;
 };
+
 
 
 //heap sort
