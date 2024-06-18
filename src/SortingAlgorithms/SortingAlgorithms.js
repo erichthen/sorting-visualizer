@@ -96,65 +96,75 @@ export const bubbleSort = (arr) => {
     let n = arr.length;
     let swapped;
 
-    for(let i = 0; i < n - 1; i ++) {
-
+    for (let i = 0; i < n - 1; i++) {
         swapped = false;
 
         for (let j = 0; j < n - 1 - i; j++) {
             animations.push(['compare', j, j + 1]);
             animations.push(['compare', j, j + 1]);
-            if (arr[j] > arr[j + 1]){
-                animations.push(['swap', j, arr[j + 1], j + 1, arr[j]])
+            if (arr[j] > arr[j + 1]) {
+                animations.push(['swap', j, arr[j + 1], j + 1, arr[j]]);
+
                 [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
                 swapped = true;
             }
         }
-        if (!swapped){
+        if (!swapped) {
             break;
         }
     }
+    console.log(animations);
     return animations;
 };
 
 
-
-//heap sort
-
 export const heapSort = (arr) => {
+    const animations = [];
     let n = arr.length;
 
+
     for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
-        max_heap(arr, n, i);
+        heapify(arr, n, i, animations);
     }
 
+    //extracting
     for (let i = n - 1; i > 0; i--) {
+        animations.push(['swap', 0, arr[i], i, arr[0]]);
         [arr[0], arr[i]] = [arr[i], arr[0]];
-        max_heap(arr, i, 0);
+
+        heapify(arr, i, 0, animations);
     }
 
-    return arr;
+    return animations;
 };
 
-const max_heap = (arr, n, i) => {
+const heapify = (arr, n, i, animations) => {
     let largest = i;
     let left = 2 * i + 1;
     let right = 2 * i + 2;
 
-    if (left < n && arr[left] > arr[largest]) {
-        largest = left;
+    if (left < n) {
+        animations.push(['compare', left, largest]);
+        animations.push(['compare', left, largest]);
+        if (arr[left] > arr[largest]) {
+            largest = left;
+        }
     }
 
-    if (right < n && arr[right] > arr[largest]) {
-        largest = right;
+    if (right < n) {
+        animations.push(['compare', right, largest]);
+        animations.push(['compare', right, largest]);
+        if (arr[right] > arr[largest]) {
+            largest = right;
+        }
     }
 
     if (largest !== i) {
+        animations.push(['swap', i, arr[largest], largest, arr[i]]);
         [arr[i], arr[largest]] = [arr[largest], arr[i]];
-        max_heap(arr, n, largest);
+        heapify(arr, n, largest, animations);
     }
 };
-
-
 
 
 
