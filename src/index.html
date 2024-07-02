@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sorting Algorithm Visualizer</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap">
+</head>
+</head>
+<body>
+<h1>Sorting Algorithm Visualizer</h1>
+<div id="chart-container"></div>
+<div class="controls">
+  <button onclick="runSort('bubble')">Bubble Sort</button>
+  <button onclick="runSort('selection')">Selection Sort</button>
+  <button onclick="runSort('insertion')">Insertion Sort</button>
+  <button onclick="runSort('merge')">Merge Sort</button>
+  <button onclick="runSort('quick')">Quick Sort</button>
+  <button onclick="runSort('heap')">Heap Sort</button>
+</div>
+<div class="slider-row">
+  <div class="slider-container">
+    <label for="arraySize">Array Size</label>
+    <input type="range" id="arraySize" min="25" max="1000" value="500" onchange="updateArraySize()">
+  </div>
+  <button id="generateArray" onclick="generateArray()">Generate Array</button>
+  <div class="slider-container">
+    <label for="sortSpeed">Sort Speed</label>
+    <input type="range" id="sortSpeed" min="500" max="2000" value="1500" onchange="updateSortSpeed()">
+  </div>
+</div>
+<script src="sort_visualizer.js"></script>
+</body></html>
