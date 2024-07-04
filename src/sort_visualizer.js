@@ -3,7 +3,7 @@
 //window scaling
 //coloring
 //speed scaling
-
+//ADD BOGO SORT MF 
 
 let array = [];
 let arraySize = document.getElementById('arraySize').value;  
